@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <title>House Price Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+ <div class="login">
+	<h2>Predict House Price</h2>
+     <h3> Enter the following values to predict the house price in Boston</h3>
+          <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+      <input type="text" name="trans_year" placeholder="Transaction Year" required="required" />
+        <input type="text" name="house_age" placeholder="House Age" required="required"/>
+        <input type="text" name="distance_mrt" placeholder="Distance to MRT" required="required" />
+        <input type="text" name="store_located" placeholder="Number of Stores at the Area" required="required"/>
+        <input type="text" name="latitude" placeholder="latitude" required="required" />
+        <input type="text" name="longitude" placeholder="longitude" required="required"/>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict Value!</button>
+        </form>
+ 
+   <br>
+   {{ prediction_text }}
+   <br>
+ </div>
+
+
+</body>
+</html>
