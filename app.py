@@ -7,14 +7,15 @@ Created on Sat Nov  5 10:50:38 2022
 
 #import pandas as pd
 from flask import Flask, request, render_template
+import joblib
 import numpy as np
 import pickle
 import os
-
+#from sklearn.externals 
 
 app = Flask(__name__)
 
-model = pickle.load(open('model.pkl', 'rb'))  # loading the model
+#model = pickle.load(open('estate_forest.pkl', 'rb'))  # loading the model
 
 @app.route("/")
 def home():
@@ -22,14 +23,19 @@ def home():
    # return render_template('index1.html')
 
 
-@app.route('/predict',methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
+
+
     #For rendering results on HTML GUI
     int_features = [float(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
+
+    flaskforest = open('estate_forest.pkl', 'rb') # opening the model
+    model = joblib.load(flaskforest) # loading the model using pipeline library (joblib)
     prediction = model.predict(final_features)
     output = round(prediction[0], 2) 
-    return render_template('index.html', prediction_text='House price is :{}'.format(output))
+    return render_template('index.html', prediction_text='House price is : ${}'.format(output))
 
 #     return render_template('predict.html',)
 
